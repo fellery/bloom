@@ -68,6 +68,19 @@ pub fn svg_color_style(color: Color) -> impl Fn(&Theme, svg::Status) -> svg::Sty
     move |_, _| svg::Style { color: Some(color) }
 }
 
+pub struct SpinnerStyle {
+    pub track_color: Color,
+    pub bar_color: Color,
+}
+
+pub fn spinner_style(theme: &Theme) -> SpinnerStyle {
+    let palette = theme.extended_palette();
+    SpinnerStyle {
+        track_color: palette.background.weak.color,
+        bar_color: palette.primary.base.color,
+    }
+}
+
 pub fn spinner_bg_style(theme: &Theme) -> container::Style {
     let palette = theme.extended_palette();
     container::Style {

@@ -152,7 +152,7 @@ pub fn view(ctx: ViewerCtx<'_>) -> Element<'_, Message> {
         let spinner_overlay = container(
             container(
                 column![
-                    Circular::<iced::Theme>::new().size(36.0).bar_height(4.0),
+                    Circular::new().size(36.0).bar_height(4.0),
                     text(filename).size(12),
                 ]
                 .spacing(PAD * 2.0)
