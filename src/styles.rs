@@ -148,6 +148,26 @@ pub fn text_input_style(theme: &Theme, status: text_input::Status) -> text_input
     }
 }
 
+pub fn dropdown_search_style(theme: &Theme, _status: text_input::Status) -> text_input::Style {
+    let palette = theme.extended_palette();
+    let text_color = palette.background.base.text;
+    text_input::Style {
+        background: Background::Color(palette.background.base.color),
+        border: Border {
+            color: palette.primary.base.color,
+            width: 1.0,
+            radius: radius().into(),
+        },
+        icon: text_color,
+        placeholder: Color {
+            a: 0.5,
+            ..text_color
+        },
+        value: text_color,
+        selection: palette.primary.base.color.scale_alpha(0.35),
+    }
+}
+
 pub fn menu_item_hover_color(theme: &Theme) -> Color {
     theme.extended_palette().background.strong.color
 }

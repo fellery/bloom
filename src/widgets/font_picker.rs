@@ -11,15 +11,16 @@ use iced::keyboard::{self, Key};
 use iced::widget::scrollable::{Direction, Scrollbar};
 use iced::widget::{button, column, container, row, scrollable, text as text_widget, text_input};
 use iced::{
-    Background, Border, Color, Element, Event, Font, Length, Point, Rectangle, Renderer, Size,
-    Theme, Vector, mouse, overlay,
+    Background, Border, Element, Event, Font, Length, Point, Rectangle, Renderer, Size, Theme,
+    Vector, mouse, overlay,
 };
 
 use crate::modifiers::text_render::font_families;
 use crate::styles::{
     DROPDOWN_GAP, DROPDOWN_ITEM_PADDING_H, DROPDOWN_PADDING, DROPDOWN_ROW_HEIGHT,
     DROPDOWN_SCROLLBAR_GUTTER, DROPDOWN_SCROLLBAR_WIDTH, DROPDOWN_SEARCH_H,
-    DROPDOWN_SEARCH_TEXT_SIZE, DROPDOWN_SEARCH_V_PAD, DROPDOWN_TEXT_SIZE, muted_text, radius,
+    DROPDOWN_SEARCH_TEXT_SIZE, DROPDOWN_SEARCH_V_PAD, DROPDOWN_TEXT_SIZE, dropdown_search_style,
+    muted_text, radius,
 };
 
 const TRIGGER_W: f32 = 220.0;
@@ -282,33 +283,13 @@ impl<Message: Clone> Widget<Message, Theme, Renderer> for FontPicker<Message> {
     }
 }
 
-fn search_style(theme: &Theme, _status: text_input::Status) -> text_input::Style {
-    let palette = theme.extended_palette();
-    let text_color = palette.background.base.text;
-    text_input::Style {
-        background: Background::Color(palette.background.base.color),
-        border: Border {
-            color: palette.primary.base.color,
-            width: 1.0,
-            radius: radius().into(),
-        },
-        icon: text_color,
-        placeholder: Color {
-            a: 0.5,
-            ..text_color
-        },
-        value: text_color,
-        selection: palette.primary.base.color.scale_alpha(0.35),
-    }
-}
-
 fn build_content<'a>(query: &str, selected: &str) -> Element<'a, Op, Theme, Renderer> {
     let search = text_input(SEARCH_PLACEHOLDER, query)
         .id(SEARCH_ID)
         .on_input(Op::Query)
         .size(SEARCH_TEXT_SIZE)
         .padding([SEARCH_V_PAD, ITEM_PADDING_H])
-        .style(search_style);
+        .style(dropdown_search_style);
 
     let query_lower = query.to_lowercase();
     let mut col = column![].width(Length::Fill);
@@ -496,6 +477,7 @@ impl<Message: Clone> Overlay<Message, Theme, Renderer> for PickerOverlay<'_, '_,
         }
 
         if let Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = event
+            && cursor.position().is_some()
             && !cursor.is_over(layout.bounds())
             && !cursor.is_over(self.anchor)
         {
