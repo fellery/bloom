@@ -3,6 +3,8 @@ use iced::advanced::widget::operation::{focusable, text_input as text_input_op};
 use iced::advanced::widget::tree::Tree;
 use iced::advanced::{self, Clipboard, Layout, Shell, layout};
 use iced::alignment::{Horizontal, Vertical};
+use iced::keyboard::key::Named;
+use iced::keyboard::{self, Key};
 use iced::mouse;
 use iced::widget::text_input;
 use iced::{
@@ -142,6 +144,88 @@ pub fn forward<Message>(
     }
     shell.request_redraw_at(local.redraw_request());
     ops
+}
+
+pub trait FieldHost<Message> {
+    fn text_size(&self) -> f32;
+    fn buffer(tree: &Tree) -> String;
+    fn set_buffer(tree: &mut Tree, buffer: String);
+    fn take_focus_request(tree: &mut Tree) -> Option<String>;
+    fn set_idle(tree: &mut Tree);
+    fn filter(&self, input: String) -> String;
+    fn publish_buffer(&self, buffer: &str, shell: &mut Shell<'_, Message>);
+    fn commit(&self, tree: &mut Tree, shell: &mut Shell<'_, Message>);
+}
+
+#[allow(clippy::too_many_arguments)]
+pub fn update_editing<Message, H>(
+    host: &H,
+    tree: &mut Tree,
+    event: &Event,
+    layout: Layout<'_>,
+    cursor: mouse::Cursor,
+    renderer: &Renderer,
+    clipboard: &mut dyn Clipboard,
+    shell: &mut Shell<'_, Message>,
+    viewport: &Rectangle,
+) where
+    H: FieldHost<Message> + ?Sized,
+{
+    let Some(editor_layout) = layout.children().next() else {
+        return;
+    };
+
+    let text_size = host.text_size();
+
+    if let Some(buffer) = H::take_focus_request(tree) {
+        focus_and_select(tree, renderer, editor_layout, &buffer, text_size);
+        shell.request_redraw();
+    }
+
+    if let Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = event
+        && !cursor.is_over(layout.bounds())
+    {
+        host.commit(tree, shell);
+        return;
+    }
+
+    if let Event::Keyboard(keyboard::Event::KeyPressed {
+        key: Key::Named(Named::Escape),
+        ..
+    }) = event
+    {
+        H::set_idle(tree);
+        shell.invalidate_layout();
+        shell.request_redraw();
+        shell.capture_event();
+        return;
+    }
+
+    let buffer = H::buffer(tree);
+    let ops = forward(
+        tree,
+        event,
+        editor_layout,
+        cursor,
+        renderer,
+        clipboard,
+        shell,
+        viewport,
+        &buffer,
+        text_size,
+    );
+
+    for op in ops {
+        match op {
+            Op::Input(s) => {
+                let filtered = host.filter(s);
+                H::set_buffer(tree, filtered.clone());
+                host.publish_buffer(&filtered, shell);
+                shell.request_redraw();
+            }
+            Op::Submit => host.commit(tree, shell),
+        }
+    }
 }
 
 pub fn filter_number(s: &str, allow_decimal: bool, allow_minus: bool, max_len: usize) -> String {

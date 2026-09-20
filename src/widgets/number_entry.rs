@@ -2,13 +2,11 @@ use iced::advanced::layout;
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::widget::tree::{self, Tree};
 use iced::advanced::{self, Clipboard, Layout, Shell, Widget};
-use iced::keyboard::key::Named;
-use iced::keyboard::{self, Key};
 use iced::mouse;
 use iced::{Background, Border, Color, Element, Event, Length, Rectangle, Renderer, Size, Theme};
 
 use crate::styles::radius;
-use crate::widgets::field_editor::{self, Op};
+use crate::widgets::field_editor;
 
 pub struct NumberEntry<Message> {
     value: f32,
@@ -171,8 +169,8 @@ where
         let bounds = layout.bounds();
 
         if tree.state.downcast_ref::<State>().is_editing() {
-            self.update_editing(
-                tree, event, layout, cursor, renderer, clipboard, shell, viewport,
+            field_editor::update_editing(
+                self, tree, event, layout, cursor, renderer, clipboard, shell, viewport,
             );
             return;
         }
@@ -336,82 +334,6 @@ where
 }
 
 impl<Message: Clone> NumberEntry<Message> {
-    #[allow(clippy::too_many_arguments)]
-    fn update_editing(
-        &mut self,
-        tree: &mut Tree,
-        event: &Event,
-        layout: Layout<'_>,
-        cursor: mouse::Cursor,
-        renderer: &Renderer,
-        clipboard: &mut dyn Clipboard,
-        shell: &mut Shell<'_, Message>,
-        viewport: &Rectangle,
-    ) {
-        let Some(editor_layout) = layout.children().next() else {
-            return;
-        };
-
-        if let State::Editing {
-            buffer,
-            needs_focus,
-        } = tree.state.downcast_mut::<State>()
-            && *needs_focus
-        {
-            *needs_focus = false;
-            let buffer = buffer.clone();
-            field_editor::focus_and_select(tree, renderer, editor_layout, &buffer, self.text_size);
-            shell.request_redraw();
-        }
-
-        if let Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = event
-            && !cursor.is_over(layout.bounds())
-        {
-            self.commit(tree, shell);
-            return;
-        }
-
-        if let Event::Keyboard(keyboard::Event::KeyPressed {
-            key: Key::Named(Named::Escape),
-            ..
-        }) = event
-        {
-            *tree.state.downcast_mut::<State>() = State::Idle;
-            shell.invalidate_layout();
-            shell.request_redraw();
-            shell.capture_event();
-            return;
-        }
-
-        let buffer = tree.state.downcast_ref::<State>().buffer().to_owned();
-        let ops = field_editor::forward(
-            tree,
-            event,
-            editor_layout,
-            cursor,
-            renderer,
-            clipboard,
-            shell,
-            viewport,
-            &buffer,
-            self.text_size,
-        );
-
-        for op in ops {
-            match op {
-                Op::Input(s) => {
-                    let filtered = self.filter(s);
-                    if let State::Editing { buffer, .. } = tree.state.downcast_mut::<State>() {
-                        *buffer = filtered.clone();
-                    }
-                    self.publish_buffer(&filtered, shell);
-                    shell.request_redraw();
-                }
-                Op::Submit => self.commit(tree, shell),
-            }
-        }
-    }
-
     fn publish_buffer(&self, buffer: &str, shell: &mut Shell<'_, Message>) {
         if let Ok(v) = buffer.parse::<f32>() {
             shell.publish((self.on_change)(self.clamp(v)));
@@ -433,5 +355,50 @@ where
 {
     fn from(widget: NumberEntry<Message>) -> Self {
         Self::new(widget)
+    }
+}
+
+impl<Message: Clone> field_editor::FieldHost<Message> for NumberEntry<Message> {
+    fn text_size(&self) -> f32 {
+        self.text_size
+    }
+
+    fn buffer(tree: &Tree) -> String {
+        tree.state.downcast_ref::<State>().buffer().to_owned()
+    }
+
+    fn set_buffer(tree: &mut Tree, buffer: String) {
+        if let State::Editing { buffer: slot, .. } = tree.state.downcast_mut::<State>() {
+            *slot = buffer;
+        }
+    }
+
+    fn take_focus_request(tree: &mut Tree) -> Option<String> {
+        match tree.state.downcast_mut::<State>() {
+            State::Editing {
+                buffer,
+                needs_focus,
+            } if *needs_focus => {
+                *needs_focus = false;
+                Some(buffer.clone())
+            }
+            _ => None,
+        }
+    }
+
+    fn set_idle(tree: &mut Tree) {
+        *tree.state.downcast_mut::<State>() = State::Idle;
+    }
+
+    fn filter(&self, input: String) -> String {
+        NumberEntry::filter(self, input)
+    }
+
+    fn publish_buffer(&self, buffer: &str, shell: &mut Shell<'_, Message>) {
+        NumberEntry::publish_buffer(self, buffer, shell)
+    }
+
+    fn commit(&self, tree: &mut Tree, shell: &mut Shell<'_, Message>) {
+        NumberEntry::commit(self, tree, shell)
     }
 }
