@@ -9,14 +9,17 @@ use iced::widget::svg::Handle;
 use iced::widget::{Space, button, column, container, row, svg, text};
 use iced::{Background, Border, Element, Length, Renderer, Theme};
 
-use crate::styles::radius;
+use crate::styles::{
+    DROPDOWN_ITEM_PADDING_H, DROPDOWN_PADDING_COMPACT, DROPDOWN_ROW_HEIGHT_COMPACT,
+    DROPDOWN_TEXT_SIZE_COMPACT, DROPDOWN_TRIGGER_H_COMPACT, radius,
+};
 use crate::widgets::menu_button::{MenuAlign, MenuButton};
 
-const TRIGGER_H: f32 = 22.0;
-const ROW_HEIGHT: f32 = 24.0;
-const ITEM_PADDING_H: f32 = 8.0;
-const TEXT_SIZE: f32 = 11.0;
-const PADDING: f32 = 4.0;
+const TRIGGER_H: f32 = DROPDOWN_TRIGGER_H_COMPACT;
+const ROW_HEIGHT: f32 = DROPDOWN_ROW_HEIGHT_COMPACT;
+const ITEM_PADDING_H: f32 = DROPDOWN_ITEM_PADDING_H;
+const TEXT_SIZE: f32 = DROPDOWN_TEXT_SIZE_COMPACT;
+const PADDING: f32 = DROPDOWN_PADDING_COMPACT;
 const CARET_SIZE: f32 = 12.0;
 
 pub struct OptionPicker<'a, T, Message> {

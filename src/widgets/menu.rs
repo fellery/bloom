@@ -10,10 +10,13 @@ use iced::{
     overlay,
 };
 
-use crate::styles::{menu_container_style, menu_item_hover_color, menu_separator_style, radius};
+use crate::styles::{
+    DROPDOWN_ITEM_PADDING_H, DROPDOWN_ROW_HEIGHT, menu_container_style, menu_item_hover_color,
+    menu_separator_style, radius,
+};
 
-const ITEM_HEIGHT: f32 = 28.0;
-const ITEM_PADDING_H: f32 = 8.0;
+const ITEM_HEIGHT: f32 = DROPDOWN_ROW_HEIGHT;
+const ITEM_PADDING_H: f32 = DROPDOWN_ITEM_PADDING_H;
 const CONTAINER_PADDING: f32 = 6.0;
 
 struct MenuItem<'a, Message> {

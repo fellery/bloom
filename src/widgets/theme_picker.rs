@@ -4,19 +4,22 @@ use iced::widget::{Space, button, column, container, row, scrollable, text};
 use iced::{Background, Border, Color, Element, Length, Renderer, Theme};
 
 use crate::config::ALL_THEMES;
-use crate::styles::radius;
+use crate::styles::{
+    DROPDOWN_ITEM_PADDING_H, DROPDOWN_PADDING, DROPDOWN_ROW_HEIGHT, DROPDOWN_SCROLLBAR_GUTTER,
+    DROPDOWN_SCROLLBAR_WIDTH, DROPDOWN_TEXT_SIZE, radius,
+};
 use crate::widgets::menu_button::{MenuAlign, MenuButton};
 
-const ROW_HEIGHT: f32 = 28.0;
-const ITEM_PADDING_H: f32 = 8.0;
+const ROW_HEIGHT: f32 = DROPDOWN_ROW_HEIGHT;
+const ITEM_PADDING_H: f32 = DROPDOWN_ITEM_PADDING_H;
 const SWATCH_SIZE: f32 = 12.0;
 const SWATCH_GAP: f32 = 3.0;
-const TEXT_SIZE: f32 = 13.0;
+const TEXT_SIZE: f32 = DROPDOWN_TEXT_SIZE;
 const DROPDOWN_WIDTH: f32 = 220.0;
 const MAX_VISIBLE_ITEMS: usize = 12;
-const PADDING: f32 = 6.0;
-const SCROLLBAR_WIDTH: f32 = 4.0;
-const SCROLLBAR_GUTTER: f32 = 4.0;
+const PADDING: f32 = DROPDOWN_PADDING;
+const SCROLLBAR_WIDTH: f32 = DROPDOWN_SCROLLBAR_WIDTH;
+const SCROLLBAR_GUTTER: f32 = DROPDOWN_SCROLLBAR_GUTTER;
 
 fn max_dropdown_height() -> f32 {
     ROW_HEIGHT * MAX_VISIBLE_ITEMS as f32 + PADDING * 2.0

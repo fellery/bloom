@@ -14,22 +14,26 @@ use iced::{
 };
 
 use crate::modifiers::ModifierType;
-use crate::styles::{muted_text, radius};
+use crate::styles::{
+    DROPDOWN_GAP, DROPDOWN_ITEM_PADDING_H, DROPDOWN_PADDING, DROPDOWN_ROW_HEIGHT,
+    DROPDOWN_SCROLLBAR_GUTTER, DROPDOWN_SCROLLBAR_WIDTH, DROPDOWN_SEARCH_H,
+    DROPDOWN_SEARCH_TEXT_SIZE, DROPDOWN_SEARCH_V_PAD, DROPDOWN_TEXT_SIZE, muted_text, radius,
+};
 use crate::widgets::menu::{SubMenuSide, menu_item_enabled, styled_menu, sub_menu};
 
-const TRIGGER_H: f32 = 28.0;
+const TRIGGER_H: f32 = DROPDOWN_ROW_HEIGHT;
 const SUBMENU_W: f32 = 210.0;
-const SEARCH_V_PAD: f32 = 8.0;
-const SEARCH_TEXT_SIZE: f32 = 12.0;
-const SEARCH_H: f32 = SEARCH_TEXT_SIZE + 2.0 * SEARCH_V_PAD;
-const ITEM_HEIGHT: f32 = 28.0;
+const SEARCH_V_PAD: f32 = DROPDOWN_SEARCH_V_PAD;
+const SEARCH_TEXT_SIZE: f32 = DROPDOWN_SEARCH_TEXT_SIZE;
+const SEARCH_H: f32 = DROPDOWN_SEARCH_H;
+const ITEM_HEIGHT: f32 = DROPDOWN_ROW_HEIGHT;
 const MAX_VISIBLE_ROWS: f32 = 14.0;
-const ITEM_PADDING_H: f32 = 8.0;
-const PADDING: f32 = 6.0;
-const GAP: f32 = 4.0;
-const TEXT_SIZE: f32 = 13.0;
-const SCROLLBAR_WIDTH: f32 = 4.0;
-const SCROLLBAR_GUTTER: f32 = 4.0;
+const ITEM_PADDING_H: f32 = DROPDOWN_ITEM_PADDING_H;
+const PADDING: f32 = DROPDOWN_PADDING;
+const GAP: f32 = DROPDOWN_GAP;
+const TEXT_SIZE: f32 = DROPDOWN_TEXT_SIZE;
+const SCROLLBAR_WIDTH: f32 = DROPDOWN_SCROLLBAR_WIDTH;
+const SCROLLBAR_GUTTER: f32 = DROPDOWN_SCROLLBAR_GUTTER;
 const TRIGGER_LABEL: &str = "+ Add Modifier";
 const SEARCH_PLACEHOLDER: &str = "Search modifiers\u{2026}";
 const SEARCH_ID: &str = "modifier_picker_search";

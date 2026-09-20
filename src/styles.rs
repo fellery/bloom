@@ -26,6 +26,22 @@ pub const INFO_SECTION_GAP: f32 = 2.0;
 pub const INFO_HISTOGRAM_HEIGHT: f32 = 142.0;
 pub const INFO_CHANNEL_COL_WIDTH: f32 = 30.0;
 
+pub const DROPDOWN_ROW_HEIGHT: f32 = 28.0;
+pub const DROPDOWN_ITEM_PADDING_H: f32 = 8.0;
+pub const DROPDOWN_TEXT_SIZE: f32 = 13.0;
+pub const DROPDOWN_PADDING: f32 = 6.0;
+pub const DROPDOWN_GAP: f32 = 4.0;
+pub const DROPDOWN_SCROLLBAR_WIDTH: f32 = 4.0;
+pub const DROPDOWN_SCROLLBAR_GUTTER: f32 = 4.0;
+pub const DROPDOWN_SEARCH_TEXT_SIZE: f32 = 12.0;
+pub const DROPDOWN_SEARCH_V_PAD: f32 = 8.0;
+pub const DROPDOWN_SEARCH_H: f32 = DROPDOWN_SEARCH_TEXT_SIZE + 2.0 * DROPDOWN_SEARCH_V_PAD;
+
+pub const DROPDOWN_ROW_HEIGHT_COMPACT: f32 = 24.0;
+pub const DROPDOWN_TRIGGER_H_COMPACT: f32 = 22.0;
+pub const DROPDOWN_TEXT_SIZE_COMPACT: f32 = 11.0;
+pub const DROPDOWN_PADDING_COMPACT: f32 = 4.0;
+
 static ACTIVE_RADIUS: OnceLock<AtomicU32> = OnceLock::new();
 
 pub fn set_radius(rounded: bool) {

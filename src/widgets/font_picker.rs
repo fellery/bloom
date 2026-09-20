@@ -16,23 +16,27 @@ use iced::{
 };
 
 use crate::modifiers::text_render::font_families;
-use crate::styles::{muted_text, radius};
+use crate::styles::{
+    DROPDOWN_GAP, DROPDOWN_ITEM_PADDING_H, DROPDOWN_PADDING, DROPDOWN_ROW_HEIGHT,
+    DROPDOWN_SCROLLBAR_GUTTER, DROPDOWN_SCROLLBAR_WIDTH, DROPDOWN_SEARCH_H,
+    DROPDOWN_SEARCH_TEXT_SIZE, DROPDOWN_SEARCH_V_PAD, DROPDOWN_TEXT_SIZE, muted_text, radius,
+};
 
 const TRIGGER_W: f32 = 220.0;
-const TRIGGER_H: f32 = 28.0;
+const TRIGGER_H: f32 = DROPDOWN_ROW_HEIGHT;
 const POPUP_W: f32 = 220.0;
-const ROW_HEIGHT: f32 = 28.0;
-const SEARCH_V_PAD: f32 = 8.0;
-const SEARCH_H: f32 = SEARCH_TEXT_SIZE + 2.0 * SEARCH_V_PAD;
+const ROW_HEIGHT: f32 = DROPDOWN_ROW_HEIGHT;
+const SEARCH_V_PAD: f32 = DROPDOWN_SEARCH_V_PAD;
+const SEARCH_H: f32 = DROPDOWN_SEARCH_H;
 const MAX_VISIBLE_ITEMS: usize = 10;
-const ITEM_PADDING_H: f32 = 8.0;
-const PADDING: f32 = 6.0;
-const GAP: f32 = 4.0;
-const TEXT_SIZE: f32 = 13.0;
+const ITEM_PADDING_H: f32 = DROPDOWN_ITEM_PADDING_H;
+const PADDING: f32 = DROPDOWN_PADDING;
+const GAP: f32 = DROPDOWN_GAP;
+const TEXT_SIZE: f32 = DROPDOWN_TEXT_SIZE;
 const TRIGGER_TEXT_SIZE: f32 = 12.0;
-const SEARCH_TEXT_SIZE: f32 = 12.0;
-const SCROLLBAR_WIDTH: f32 = 4.0;
-const SCROLLBAR_GUTTER: f32 = 4.0;
+const SEARCH_TEXT_SIZE: f32 = DROPDOWN_SEARCH_TEXT_SIZE;
+const SCROLLBAR_WIDTH: f32 = DROPDOWN_SCROLLBAR_WIDTH;
+const SCROLLBAR_GUTTER: f32 = DROPDOWN_SCROLLBAR_GUTTER;
 const DEFAULT_LABEL: &str = "Default font";
 const SEARCH_PLACEHOLDER: &str = "Search fonts\u{2026}";
 const SEARCH_ID: &str = "font_picker_search";
