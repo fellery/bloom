@@ -16,7 +16,7 @@ use iced::{
 };
 
 use crate::modifiers::text_render::font_families;
-use crate::styles::radius;
+use crate::styles::{muted_text, radius};
 
 const TRIGGER_W: f32 = 220.0;
 const TRIGGER_H: f32 = 28.0;
@@ -334,7 +334,9 @@ fn build_content<'a>(query: &str, selected: &str) -> Element<'a, Op, Theme, Rend
             container(
                 text_widget("No fonts found")
                     .size(TEXT_SIZE)
-                    .color(Color::from_rgba(0.6, 0.6, 0.6, 1.0)),
+                    .style(|theme: &Theme| text_widget::Style {
+                        color: Some(muted_text(theme)),
+                    }),
             )
             .padding([0.0, ITEM_PADDING_H])
             .height(Length::Fixed(ROW_HEIGHT))

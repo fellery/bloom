@@ -14,7 +14,7 @@ use iced::{
 };
 
 use crate::modifiers::ModifierType;
-use crate::styles::radius;
+use crate::styles::{muted_text, radius};
 use crate::widgets::menu::{SubMenuSide, menu_item_enabled, styled_menu, sub_menu};
 
 const TRIGGER_H: f32 = 28.0;
@@ -327,7 +327,9 @@ fn filtered_body<'a>(query_lower: &str, timed: bool) -> Element<'a, Op, Theme, R
             container(
                 iced::widget::text("No modifiers found")
                     .size(TEXT_SIZE)
-                    .color(Color::from_rgba(0.6, 0.6, 0.6, 1.0)),
+                    .style(|theme: &Theme| iced::widget::text::Style {
+                        color: Some(muted_text(theme)),
+                    }),
             )
             .padding([0.0, ITEM_PADDING_H])
             .height(Length::Fixed(ITEM_HEIGHT))
