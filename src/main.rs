@@ -1,6 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod app;
+mod cli;
 mod clipboard;
 mod components;
 mod config;
@@ -14,7 +15,6 @@ mod tasks;
 mod ui;
 mod wgpu;
 mod widgets;
-use std::{env, path::PathBuf};
 
 use app::App;
 use iced::{Size, window};
@@ -51,7 +51,7 @@ fn main() -> iced::Result {
         .stack_size(8 * 1024 * 1024)
         .build_global();
 
-    let media = env::args().nth(1).map(PathBuf::from);
+    let media = cli::parse().media;
     let config = config::Config::load();
     let level = if config.always_on_top {
         window::Level::AlwaysOnTop
