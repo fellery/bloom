@@ -4,6 +4,11 @@ on:
   push:
     branches: ["main"]
   pull_request:
+  schedule:
+    # An advisory can be published against a dependency that has not changed,
+    # so a tree that passed on merge is vulnerable days later with nothing
+    # pushed to retrigger CI. The daily run rechecks it.
+    - cron: "0 6 * * *"
 
 env:
   CARGO_TERM_COLOR: always
@@ -11,6 +16,9 @@ env:
 jobs:
   lint:
     name: Lint
+    # The daily schedule only re-audits an unchanged tree, so the cron run
+    # skips this job.
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -65,3 +73,31 @@ jobs:
           BLOOM_REQUIRE_GPU: "1"
           WGPU_BACKEND: vulkan
         run: "cargo test --features heif,av wgpu::"
+
+  audit:
+    name: Audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      # cargo-audit reads Cargo.lock and queries the RustSec database. It never
+      # compiles the crate, so this job skips the libheif, dav1d and FFmpeg
+      # install that the lint job needs.
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+
+      # Bare `cargo audit` exits 1 on a vulnerability and exits 0 on
+      # unmaintained or yanked crates, which it prints as allowed warnings.
+      # Several of those warnings are transitive with no upgrade available, so
+      # failing on them would leave this job red every run.
+      #
+      # RUSTSEC-2026-0151 (jxl-grid out-of-bounds write) is ignored because the
+      # only path to it is dicom-transfer-syntax-registry pinning an old
+      # jxl-oxide; our own jxl-oxide is on the patched jxl-grid. The overflow is
+      # reachable on 32-bit targets and every artifact we ship is 64-bit.
+      # Removing the ignore needs a semver-major bump to dicom 0.10.
+      - name: cargo audit
+        run: cargo audit --ignore RUSTSEC-2026-0151
