@@ -74,6 +74,36 @@ jobs:
           WGPU_BACKEND: vulkan
         run: "cargo test --features heif,av wgpu::"
 
+  cross:
+    name: Check ${{ matrix.name }}
+    # Nothing here inspects dependencies, so the nightly advisory run skips it.
+    if: github.event_name != 'schedule'
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: windows
+            runner: windows-latest
+          - name: macos
+            runner: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.name }}
+
+      # The lint job builds and tests on Linux with heif and av. This one only
+      # answers whether the other two platforms still compile, which is what
+      # release.yml would otherwise discover at tag time. Default features need
+      # no libheif, dav1d or FFmpeg, so these runners install nothing. The av
+      # and heif paths stay uncovered here and are first built at release.
+      - name: cargo check
+        run: cargo check --all-targets
+
   audit:
     name: Audit
     runs-on: ubuntu-24.04
