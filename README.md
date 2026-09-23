@@ -89,21 +89,29 @@ Builds are published for Windows x86_64, Linux x86_64 and Apple Silicon macOS. I
 cargo build --release
 ```
 
-For HEIC/HEIF support, install libheif and build with the feature flag:
+For HEIC/HEIF support, the `libheif-rs` bindings link against libheif. A helper script sets it up:
 
 ```sh
-# macOS
-brew install libheif
+# macOS / Linux
+./scripts/setup-heif.sh
 
-# Linux
-sudo apt install libheif-dev   # Ubuntu/Debian
-sudo dnf install libheif-devel # Fedora
-sudo pacman -S libheif         # Arch
+# Windows (PowerShell): builds libheif via vcpkg into vendor/ and sets VCPKG_ROOT
+./scripts/setup-heif.ps1
 
 cargo build --release --features heif
 ```
 
-For video playback, the `ffmpeg-next` bindings link against FFmpeg. A helper script installs it:
+On macOS the script installs libheif with Homebrew. On Linux it checks for libheif and tells you the package to install if it is missing:
+
+```sh
+sudo apt install libheif-dev   # Ubuntu/Debian
+sudo dnf install libheif-devel # Fedora
+sudo pacman -S libheif         # Arch
+```
+
+On Windows it clones vcpkg into `vendor/vcpkg`, builds libheif from source, and sets a persistent `VCPKG_ROOT`. Open a new terminal afterward so the environment changes take effect.
+
+For video playback, the `ffmpeg-next` bindings link against FFmpeg. A helper script sets it up:
 
 ```sh
 # macOS / Linux
@@ -115,7 +123,15 @@ For video playback, the `ffmpeg-next` bindings link against FFmpeg. A helper scr
 cargo build --release --features av
 ```
 
-On macOS and Linux the script installs the FFmpeg dev libraries via your package manager. On Windows it fetches a prebuilt FFmpeg into `vendor/ffmpeg` and installs LLVM. Open a new terminal afterward so the environment changes take effect.
+On macOS the script installs FFmpeg with Homebrew. On Linux it checks for the FFmpeg dev libraries and tells you the package to install if they are missing:
+
+```sh
+sudo apt install libavformat-dev libavfilter-dev libavdevice-dev libclang-dev   # Ubuntu/Debian
+sudo dnf install ffmpeg-devel clang                                            # Fedora
+sudo pacman -S ffmpeg clang                                                    # Arch
+```
+
+On Windows it fetches a prebuilt FFmpeg into `vendor/ffmpeg` and installs LLVM. Open a new terminal afterward so the environment changes take effect.
 
 Requires a GPU with WebGPU support. On Windows, DX12 is used by default.
 
