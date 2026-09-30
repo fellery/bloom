@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://bloomview.rs/guide/
+    about: Guides for installing, building, shortcuts and the editing tools.

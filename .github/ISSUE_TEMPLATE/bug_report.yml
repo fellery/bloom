@@ -1,0 +1,63 @@
+name: Bug report
+description: Something does not work as expected
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `bloom --version`, or the release tag you downloaded.
+      placeholder: bloom 0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows x86_64
+        - macOS Apple Silicon
+        - macOS Intel
+        - Linux x86_64
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: variant
+    attributes:
+      label: Build
+      description: Which download, or how you built it from source.
+      options:
+        - Full (HEIF and video)
+        - "-heif (no video)"
+        - "-minimal (no HEIF, no video)"
+        - Built from source
+    validations:
+      required: true
+
+  - type: input
+    id: format
+    attributes:
+      label: File format
+      description: If the problem happens with a particular file, its extension.
+      placeholder: .heic
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Crash log
+      description: >
+        On a crash, bloom writes crash.log to its data directory
+        (%LOCALAPPDATA%\bloom on Windows, ~/.local/share/bloom on Linux,
+        ~/Library/Application Support/bloom on macOS). Paste it if there is one.
+      render: text
