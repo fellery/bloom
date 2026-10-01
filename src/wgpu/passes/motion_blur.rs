@@ -1,3 +1,5 @@
+//! The motion blur pass: averages samples along a line at the given angle.
+
 use bytemuck::{Pod, Zeroable};
 use iced::wgpu::{
     BindGroupLayout, BlendState, Buffer, CommandEncoder, Device, LoadOp, Operations,

@@ -1,3 +1,5 @@
+//! Grayscale: blends each channel toward the luminance by the amount.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

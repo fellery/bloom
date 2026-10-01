@@ -1,3 +1,10 @@
+//! The uniform layout the fused modifier shader reads.
+//!
+//! One segment of fused pointwise modifiers becomes one uniform buffer holding
+//! the whole list, so the shader loops over entries instead of the host
+//! dispatching a pass per modifier. The Rust structs here and the WGSL structs
+//! must keep the same layout.
+
 use bytemuck::Zeroable;
 
 use crate::modifiers::Modifier;

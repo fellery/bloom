@@ -1,3 +1,5 @@
+//! Wraps content so that a right click opens a menu over it.
+
 use iced::advanced::layout;
 use iced::advanced::renderer;
 use iced::advanced::widget::tree::{self, Tree};

@@ -1,3 +1,9 @@
+//! Reading images and file paths off the system clipboard, and writing back.
+//!
+//! Pixels are tried first. A file copied in a file manager arrives as text
+//! instead, so text that names an existing file with a supported extension is
+//! returned as a path to load rather than pasted as a string.
+
 use std::path::PathBuf;
 
 use crate::{gallery::SUPPORTED, wgpu::media::image_data::ImageData};

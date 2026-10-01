@@ -1,3 +1,5 @@
+//! Color balance: an independent offset on each of the three channel pairs.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

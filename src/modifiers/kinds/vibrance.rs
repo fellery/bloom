@@ -1,3 +1,6 @@
+//! Vibrance: saturates by an amount that falls off as a pixel is already
+//! saturated, so skin tones move less than flat color does.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

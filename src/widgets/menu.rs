@@ -1,3 +1,13 @@
+//! Menu items and submenus, plus the container style the menus share.
+//!
+//! A submenu opens on hover and closes when the cursor leaves both the item and
+//! the submenu. The item's hit rect is widened by the gap between the two, so
+//! crossing that gap does not close the menu the cursor is travelling toward.
+//!
+//! Side is a preference rather than a rule. A submenu that would run off the
+//! window opens on the other side instead, and the arrow and the label swap
+//! ends to match.
+
 use iced::advanced::layout;
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::widget::tree::{self, Tree};

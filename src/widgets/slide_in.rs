@@ -1,3 +1,10 @@
+//! Translates its content horizontally without moving the space it occupies.
+//!
+//! Layout runs at the resting position and only the draw and the event
+//! positions shift, so an animating child does not relayout its parent on every
+//! frame. The cursor is shifted by the same offset before it reaches the child,
+//! which is what keeps hit testing lined up with where the content appears.
+
 use iced::advanced::layout;
 use iced::advanced::widget::Tree;
 use iced::advanced::{self, Clipboard, Layout, Shell, Widget};

@@ -1,3 +1,8 @@
+//! A circular control for angle parameters.
+//!
+//! The angle follows the cursor's direction from the center rather than a drag
+//! distance, so the dial cannot lose the pointer partway round.
+
 use iced::advanced::layout;
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::widget::tree::{self, Tree};

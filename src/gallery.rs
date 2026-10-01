@@ -1,3 +1,12 @@
+//! The list of media files next to the open one, for stepping through a folder.
+//!
+//! The folder is read once when a file opens and not watched afterward, so a
+//! file added later does not appear until the next open. Entries are sorted by
+//! path, which is what makes next and previous stable across runs.
+//!
+//! A symlink is followed before the file check, so a link to an image is
+//! included and a link to a directory is not.
+
 use std::{
     fmt,
     fs::read_dir,

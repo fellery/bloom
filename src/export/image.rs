@@ -1,3 +1,5 @@
+//! Encoding a rendered frame to an image file.
+
 use std::io::{BufWriter, Write};
 use std::path::Path;
 

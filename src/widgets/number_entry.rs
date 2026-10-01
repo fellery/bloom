@@ -1,3 +1,9 @@
+//! A compact numeric field, dragged to scrub or clicked to type.//!
+//! A press starts in Pending rather than in Dragging. Releasing from there
+//! opens the text editor, and moving 4px sideways first promotes it to a drag,
+//! so one control handles both a click to type and a drag to scrub without the
+//! two interfering.
+
 use iced::advanced::layout;
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::widget::tree::{self, Tree};

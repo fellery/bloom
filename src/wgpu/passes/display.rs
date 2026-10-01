@@ -1,3 +1,5 @@
+//! The final blit of a rendered texture to the surface.
+
 use iced::wgpu::{
     BindGroup, BindGroupLayout, BlendState, Buffer, Device, PrimitiveTopology, RenderPass,
     RenderPipeline, Sampler, ShaderStages, TextureFormat, TextureView,

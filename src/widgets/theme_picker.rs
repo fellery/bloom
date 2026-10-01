@@ -1,3 +1,6 @@
+//! A dropdown over the built-in themes, each row showing a swatch of its
+//! palette.
+
 use iced::alignment::Vertical;
 use iced::widget::scrollable::{Direction, Scrollbar};
 use iced::widget::{Space, button, column, container, row, scrollable, text};

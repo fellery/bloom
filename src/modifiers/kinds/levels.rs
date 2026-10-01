@@ -1,3 +1,6 @@
+//! Levels: remaps the range between the shadow and highlight points, then
+//! applies the midtone gamma.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

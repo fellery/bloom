@@ -1,3 +1,9 @@
+//! Multi-frame stills: animated GIF, APNG, and animated WebP.
+//!
+//! Every frame is decoded and held, with its own delay, so stepping backward
+//! costs nothing. Video goes through the `av` path instead, where holding all
+//! the frames is not an option.
+
 use std::io::Error;
 use std::sync::Arc;
 use std::time::{Duration, Instant};

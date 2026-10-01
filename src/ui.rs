@@ -1,3 +1,10 @@
+//! Element builders shared across the views: icon buttons, tooltips, and
+//! duration formatting.
+//!
+//! A tooltip can show the keybinding for its action alongside the label. It
+//! reads the binding from the live keymap rather than from a fixed string, so
+//! a rebind in preferences shows up without touching the call site.
+
 use std::time::Duration;
 
 use iced::alignment::Vertical;

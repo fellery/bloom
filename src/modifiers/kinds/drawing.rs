@@ -1,3 +1,8 @@
+//! Drawing: the brush strokes of one drawing layer.
+//!
+//! A stroke is a list of points in normalized image coordinates, not a set of
+//! pixels, so the same drawing rasters at whatever size the chain runs at.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 

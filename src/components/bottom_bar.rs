@@ -1,3 +1,5 @@
+//! The status bar along the bottom: transport controls, zoom, and the menus.
+
 use iced::alignment::Vertical;
 use iced::widget::progress_bar;
 use iced::widget::svg::Handle;

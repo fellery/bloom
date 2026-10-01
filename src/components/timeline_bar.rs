@@ -1,3 +1,6 @@
+//! The scrubber row shown for animations and video: timeline, transport, and
+//! the trim handles when a trim modifier is being edited.
+
 use std::time::Duration;
 
 use iced::alignment::Vertical;

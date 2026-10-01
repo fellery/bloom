@@ -1,3 +1,10 @@
+//! Audio output for video playback, and the clock the video follows.
+//!
+//! The clock counts samples the device has consumed, which is the only
+//! authority on how far playback has really got. Between callbacks it
+//! interpolates with wall time and reports whichever is further ahead, so the
+//! position never sits still between two callbacks and never steps backward.
+
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU32, AtomicU64, Ordering};
 use std::time::{Duration, Instant};

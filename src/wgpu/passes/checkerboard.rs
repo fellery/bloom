@@ -1,3 +1,8 @@
+//! The transparency checkerboard drawn behind the image.
+//!
+//! The squares are sized in screen pixels rather than image pixels, so the
+//! pattern holds still while the image is zoomed.
+
 use bytemuck::{Pod, Zeroable};
 use iced::Rectangle;
 use iced::wgpu::{

@@ -1,3 +1,9 @@
+//! Pixel sort: sorts runs of pixels along a direction by a threshold on
+//! luminance.
+//!
+//! It reads whole scan lines rather than a neighborhood, and the step it
+//! declares is the direction those lines run in.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

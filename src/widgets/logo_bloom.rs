@@ -1,3 +1,14 @@
+//! The animated logo on the about page.
+//!
+//! One wave draws the mark ECHOES times, each copy further left and fainter
+//! than the last, and each rotating one ECHOES-th of a cycle behind the one in
+//! front.
+//! The offsets and the opacities all scale by spread(t), so the trail grows out
+//! of the resting logo and settles back into it.
+//!
+//! An echo whose opacity falls below MIN_OPACITY is skipped. At less than one
+//! part in 255 it cannot change a pixel.
+
 use std::time::Duration;
 
 use iced::advanced::image::{self, FilterMethod, Image};

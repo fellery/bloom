@@ -1,3 +1,7 @@
+//! Motion blur: averages along a line at the given angle.
+//!
+//! Its neighborhood is not separable, since the line is not axis aligned.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

@@ -1,3 +1,11 @@
+//! Custom widgets, each implementing iced's Widget trait directly.
+//!
+//! These exist because iced has no equivalent, or because the stock version
+//! cannot do what this app needs. An overlay has to measure itself in image
+//! coordinates. A dropdown has to stay open across a re-layout. A numeric field
+//! has to edit on drag as well as on type. Anything that can be built by
+//! composing stock widgets is a `components` view function instead.
+
 pub mod angle_dial;
 pub mod color_swatch;
 pub mod context_menu;

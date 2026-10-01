@@ -1,3 +1,5 @@
+//! Posterize: rounds each channel to one of a fixed number of levels.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

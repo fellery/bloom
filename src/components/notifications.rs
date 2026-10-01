@@ -1,3 +1,15 @@
+//! Toast notifications stacked in the corner.
+//!
+//! An entry outlives its notification's timeout, because the dismissal is
+//! animated. `dismissing_at` starts the fade out and `is_gone` reports when it
+//! has finished, which is when the app drops the entry. The app must keep
+//! redrawing while `is_animating` returns true, since elapsed time drives the
+//! fade and no message arrives to trigger a frame.
+//!
+//! Alpha multiplies the fade in and the fade out together, so a toast dismissed
+//! before it finished arriving fades from wherever it had got to instead of
+//! snapping to full opacity first.
+
 use std::time::{Duration, Instant};
 
 use iced::widget::svg::Handle;

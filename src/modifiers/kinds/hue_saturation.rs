@@ -1,3 +1,5 @@
+//! Hue, saturation and lightness: converts to HSL, offsets each, converts back.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

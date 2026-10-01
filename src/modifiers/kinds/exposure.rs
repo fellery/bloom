@@ -1,3 +1,5 @@
+//! Exposure: scales every channel by a power of two, so one stop is one unit.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

@@ -1,3 +1,5 @@
+//! Threshold: drives every pixel to black or white by its luminance.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

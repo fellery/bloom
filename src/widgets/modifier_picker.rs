@@ -1,3 +1,12 @@
+//! The "add modifier" dropdown, grouped by category and searchable.
+//!
+//! The popup content is a cached `'static` Element, so it cannot borrow the
+//! widget's state to report a selection. The content sets the shared `picked`
+//! flag instead, and the overlay closes on the next event it sees.
+//!
+//! `timed` narrows the list to the modifiers that apply to animations and
+//! video, so a still image is not offered a trim.
+
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::text::Renderer as _;
 use iced::advanced::widget::operation::focusable;

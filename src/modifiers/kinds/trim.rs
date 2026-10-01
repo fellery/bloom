@@ -1,3 +1,8 @@
+//! Trim: narrows an animation or a video to a range of its timeline.
+//!
+//! It changes which frames exist rather than any pixel, so it is the one
+//! modifier whose effect is only visible over time.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 use std::time::Duration;

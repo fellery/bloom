@@ -1,3 +1,8 @@
+//! Chromatic aberration: offsets the red and blue channels radially.
+//!
+//! It declares FullFrame because the offset grows with distance from the
+//! center, so a pixel near an edge can reach far across the image.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

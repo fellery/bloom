@@ -1,3 +1,17 @@
+//! The frame scrubber, with optional trim handles.
+//!
+//! While a drag is in progress the playhead follows the cursor rather than the
+//! reported position, so scrubbing stays smooth when the decoder cannot keep
+//! up. The seek message still goes out on every move.
+//!
+//! Handles have a grab margin wider than they are drawn, and the nearer of the
+//! two wins when both are in range, so the start and end handles stay separable
+//! once a trim closes up.
+//!
+//! Playback redraws by requesting the next frame from inside the redraw it is
+//! already handling. A drag suspends that, since the drag is already producing
+//! the redraws.
+
 use iced::advanced::layout;
 use iced::advanced::renderer::{self, Quad};
 use iced::advanced::widget::tree::{self, Tree};

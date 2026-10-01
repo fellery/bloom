@@ -1,3 +1,6 @@
+//! Grain: value noise on a grid whose cell size is set in pixels, so the grain
+//! keeps its size as the image is resized.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

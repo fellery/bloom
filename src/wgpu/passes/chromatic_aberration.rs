@@ -1,3 +1,5 @@
+//! The chromatic aberration pass: samples red and blue at radial offsets.
+
 use bytemuck::{Pod, Zeroable};
 use iced::wgpu::{
     BindGroupLayout, BlendState, Buffer, CommandEncoder, Device, LoadOp, Operations,

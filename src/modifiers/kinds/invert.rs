@@ -1,3 +1,5 @@
+//! Invert: blends each channel toward its complement by the amount.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

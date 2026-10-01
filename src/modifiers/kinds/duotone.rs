@@ -1,3 +1,5 @@
+//! Duotone: maps luminance onto a ramp between two chosen colors.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

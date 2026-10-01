@@ -1,3 +1,14 @@
+//! The freehand brush overlay, drawn over the viewport.
+//!
+//! Points are recorded in normalized image coordinates, so a stroke stays put
+//! across pan and zoom. The brush cursor is sized by converting the brush width
+//! through the same transform, rather than by scaling a screen radius.
+//!
+//! Points closer together than MIN_POINT_DIST are dropped. The stroke stays
+//! continuous under a fast cursor anyway, because the raster walks the segment
+//! between consecutive points and stamps a dab every brush spacing. Keeping
+//! every cursor event only made long strokes more expensive to re-raster.
+
 use glam::{Vec2, vec2};
 use iced::advanced::Renderer as _;
 use iced::advanced::graphics::geometry::{Frame, Path, Renderer as GeometryRenderer, Stroke};

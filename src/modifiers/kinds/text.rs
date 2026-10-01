@@ -1,3 +1,5 @@
+//! Text: a text layer, rasterized from glyph distance fields.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

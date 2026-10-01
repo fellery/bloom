@@ -1,3 +1,16 @@
+//! Pan and zoom handling, shared by the tool overlays.
+//!
+//! The crop, draw and text overlays all sit over the viewport and all have to
+//! keep it navigable. Handling that here is what stops the three from drifting
+//! apart on which button pans or how far a wheel notch zooms.
+//!
+//! Pixel scroll deltas are rate limited and line deltas are not. A trackpad
+//! sends a stream of small pixel deltas where a wheel sends one notch, and
+//! treating each as a zoom step made trackpad zoom uncontrollable.
+//!
+//! Space held turns a left drag into a pan. The overlay decides whether to
+//! allow that, since a tool editing text needs the space bar for typing.
+
 use std::time::Instant;
 
 use glam::vec2;

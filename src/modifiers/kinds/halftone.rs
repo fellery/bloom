@@ -1,3 +1,6 @@
+//! Halftone: a rotated dot screen whose period is set against the shorter side,
+//! so the pattern is square rather than stretched.
+
 use std::collections::hash_map::DefaultHasher;
 use std::f32::consts::PI;
 use std::hash::Hash;

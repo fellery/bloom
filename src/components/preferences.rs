@@ -1,3 +1,23 @@
+//! The preferences window: appearance, rendering, keybindings, and about.
+//!
+//! Edits go to a pending Config, not the live one, so Cancel can discard them
+//! and Save is the only thing that commits. The one exception is the rounded
+//! corner radius, which styles read from a global rather than from the Config
+//! they are given, so Save has to push it there explicitly.
+//!
+//! Keybind capture reads the *physical* key, since a binding should follow the
+//! key's position rather than whatever character the active layout puts on it.
+//! A bare modifier is ignored while capturing, because it is always on its way
+//! to a real chord. Escape and unmodified Backspace are reserved for cancel and
+//! clear, which is why neither can be bound.
+//!
+//! Setting a binding that another action already holds does not refuse it. The
+//! new action wins, the old ones are unbound, and the conflict is reported so
+//! the user can see what was taken away.
+//!
+//! Always-on-top is disabled under Wayland, where the protocol gives no way to
+//! ask for it.
+
 use std::sync::OnceLock;
 
 use iced::alignment::{Horizontal, Vertical};

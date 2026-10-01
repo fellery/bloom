@@ -1,3 +1,12 @@
+//! Process entry point: panic logging, the rayon pool, and the iced app.
+//!
+//! The panic hook writes a backtrace to crash.log under the local data dir
+//! before the default hook runs, because a release build detaches from the
+//! console and a panic would otherwise leave nothing behind.
+//!
+//! The rayon pool is built with an 8 MiB stack. The default is too small for
+//! the recursive work the CPU render path does on large images.
+
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod app;

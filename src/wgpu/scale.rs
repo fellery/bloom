@@ -1,3 +1,10 @@
+//! The zoom level, as a position in a fixed ladder of steps.
+//!
+//! Zoom in and out move between preset steps rather than multiplying by a
+//! constant, so the same percentages come back every time and 100% is always
+//! reachable. A value typed or fitted to the window becomes Custom, and the
+//! next step in either direction snaps back onto the ladder.
+
 const STEPS: &[f32] = &[
     0.01, 0.02, 0.03, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.25,
     1.50, 1.75, 2.00, 2.50, 3.00, 3.50, 4.00, 5.00, 6.00, 7.00, 8.00, 10.0, 12.0, 15.0, 18.0, 21.0,

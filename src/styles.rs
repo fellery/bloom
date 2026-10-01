@@ -1,3 +1,13 @@
+//! Every style function and layout constant, in one place.
+//!
+//! A style is a function of the theme, so colors come from the active palette
+//! rather than from literals and all 22 themes work without a per-theme branch.
+//!
+//! The corner radius is the exception. iced hands a style function nothing but
+//! the theme, so a preference cannot reach one through an argument, and the
+//! radius lives in a global that Save writes. Anything reading RADIUS directly
+//! instead of calling radius() ignores the setting.
+
 use std::sync::OnceLock;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::time::Duration;

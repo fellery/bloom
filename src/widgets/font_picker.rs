@@ -1,3 +1,17 @@
+//! A searchable dropdown over the system's font families.
+//!
+//! The family list is enumerated once into a static index, with a lowercased
+//! copy of each name beside it, so filtering does not re-case every name on
+//! every keystroke.
+//!
+//! The popup is a cached Element built for a given query and selection, and
+//! `built_for` is the key that decides when to rebuild it. Rebuilding on every
+//! frame threw away the search field's own state, including its cursor.
+//!
+//! The popup closes on a click outside it, but only when the cursor has a
+//! position. Without that check a synthetic event with no cursor read as a
+//! click outside and closed the popup on its own.
+
 use std::sync::OnceLock;
 
 use iced::advanced::renderer::{self, Quad};

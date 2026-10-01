@@ -5,7 +5,7 @@
 //! remaining memory ceiling on the input side: export streams in bands, but
 //! loading does not, so peak use scales with the source's full pixel count.
 //!
-//! Pixels sit behind a Mutex<Arc<Vec<u8>>> so a snapshot can be handed out
+//! Pixels sit behind a `Mutex<Arc<Vec<u8>>>` so a snapshot can be handed out
 //! cheaply while the buffer stays replaceable. release_pixels drops the
 //! backing store for an image that is no longer displayed, though it only runs
 //! when selecting a different image, so it never lowers the peak for the image

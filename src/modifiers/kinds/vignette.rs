@@ -1,3 +1,5 @@
+//! Vignette: darkens with distance from the center, softened over a band.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

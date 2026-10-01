@@ -1,3 +1,5 @@
+//! The edit sidebar: the tool strip plus the modifier stack below it.
+
 use iced::widget::tooltip::Position;
 use iced::widget::{Space, container, row};
 use iced::{Element, Length};

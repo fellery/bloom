@@ -1,3 +1,13 @@
+//! The inline text editor shared by the numeric widgets.
+//!
+//! value_slider, number_entry and scale_entry all turn into a text field when
+//! clicked, and all need the same focus, commit and filter behavior. Each kept
+//! its own copy once, and the copies drifted. A host implements FieldHost and
+//! update_editing runs the editing state for it.
+//!
+//! filter_number rejects characters instead of parsing and reformatting, so a
+//! half-typed value such as "-" or "1." survives long enough to be finished.
+
 use iced::advanced::text::{self, Text};
 use iced::advanced::widget::operation::{focusable, text_input as text_input_op};
 use iced::advanced::widget::tree::Tree;

@@ -1,3 +1,8 @@
+//! Reading the EXIF fields the info panel shows.
+//!
+//! Rationals are formatted as the photographer would write them, so an exposure
+//! shorter than a second reads as 1/N rather than as a decimal.
+
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;

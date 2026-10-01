@@ -1,3 +1,8 @@
+//! A row whose trailing controls appear only while the cursor is over it.
+//!
+//! The hover slot keeps its width whether or not it is showing anything, so the
+//! rest of the row does not shift sideways when the controls appear.
+
 use iced::advanced::widget::{Tree, tree};
 use iced::advanced::{self, Clipboard, Layout, Shell, Widget, layout, overlay};
 use iced::border::Radius;

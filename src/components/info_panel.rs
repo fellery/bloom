@@ -1,3 +1,15 @@
+//! The side panel: file metadata, image properties, EXIF, and the eyedropper
+//! readout.
+//!
+//! The pixel preview magnifies a small neighborhood of the cursor with nearest
+//! sampling, so individual pixels stay square. The crosshair over it is four
+//! arms with a gap in the middle rather than two full lines, which leaves the
+//! sampled pixel uncovered. Each arm is stroked twice, black under white, so it
+//! stays visible over any image.
+//!
+//! Long filenames are truncated in the middle of the stem rather than at the
+//! end, since the extension is usually the part worth keeping.
+
 use std::collections::HashSet;
 use std::path::Path;
 use std::time::Duration;

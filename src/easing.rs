@@ -1,3 +1,5 @@
+//! Cubic easing curves for the UI animations.
+
 pub fn ease_in_cubic(t: f32) -> f32 {
     t.powi(3)
 }

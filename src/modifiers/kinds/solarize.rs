@@ -1,3 +1,5 @@
+//! Solarize: inverts each channel above the threshold and leaves the rest.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

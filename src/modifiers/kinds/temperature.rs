@@ -1,3 +1,5 @@
+//! Temperature and tint: shifts red against blue, and green on its own.
+
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 

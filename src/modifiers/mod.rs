@@ -1,3 +1,13 @@
+//! The modifier stack: what each modifier is, and what a backend needs to know
+//! to run one.
+//!
+//! Everything here works for either backend. A modifier declares its own
+//! parameters, how far it reads from its input, and what geometry it produces.
+//! The GPU pipeline and the CPU export path both read those declarations.
+//! Nothing here matches on a modifier kind to answer a question the modifier
+//! could answer about itself. That is what lets a new modifier land without
+//! edits to both backends.
+
 pub mod cpu;
 pub mod drawing_raster;
 pub mod gpu;

@@ -1,3 +1,13 @@
+//! The grid drawn between individual pixels at high zoom.
+//!
+//! The shader takes the screen-to-image transform and derives the lines from
+//! the image grid with fwidth, so a line stays one screen pixel wide at any
+//! zoom instead of scaling with the image.
+//!
+//! The grid fades out below ten screen pixels per image pixel. Drawn at any
+//! smaller zoom the lines cover more of the screen than the pixels they
+//! separate.
+
 use bytemuck::{Pod, Zeroable};
 use glam::Mat4;
 use iced::Rectangle;

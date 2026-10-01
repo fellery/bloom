@@ -1,3 +1,9 @@
+//! Rasterizing a text modifier into a layer the render chain can sample.
+//!
+//! Glyphs are stored as signed distance fields, so one raster stays sharp at
+//! any size the chain asks for. The median of the three channels is what gives
+//! the distance, which keeps sharp corners that a single channel rounds off.
+
 use std::sync::Arc;
 
 use crate::modifiers::cpu::smoothstep;
